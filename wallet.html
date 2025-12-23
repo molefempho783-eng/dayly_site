@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top Up Digital Wallet - Secure Payment Platform">
+    <title>Digital Wallet - Top Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .wallet-page {
+            padding: 100px 0 4rem;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .wallet-mockup-container {
+            max-width: 420px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 40px;
+            padding: 20px 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .phone-screen {
+            background: #f5f5f5;
+            border-radius: 30px;
+            overflow: hidden;
+            min-height: 800px;
+            position: relative;
+        }
+        .phone-header {
+            background: linear-gradient(135deg, #9C3FE4 0%, #C65647 100%);
+            padding: 50px 20px 30px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        .status-bar {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .balance-display {
+            margin-top: 20px;
+        }
+        .balance-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        .balance-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .balance-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 25px 20px;
+            background: white;
+        }
+        .action-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #1a1a1a;
+        }
+        .action-btn:hover {
+            border-color: #9C3FE4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(156, 63, 228, 0.2);
+        }
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .action-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .transactions-section {
+            background: white;
+            padding: 25px 20px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        .transaction-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        .transaction-icon.incoming {
+            background: #e8f5e9;
+        }
+        .transaction-icon.outgoing {
+            background: #ffebee;
+        }
+        .transaction-details {
+            flex: 1;
+        }
+        .transaction-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .transaction-date {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .transaction-amount.positive {
+            color: #4caf50;
+        }
+        .transaction-amount.negative {
+            color: #f44336;
+        }
+        .payment-methods {
+            background: white;
+            padding: 25px 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .method-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .method-card:hover, .method-card.active {
+            border-color: #9C3FE4;
+            background: #f3e5f5;
+        }
+        .method-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .method-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .wallet-info {
+            text-align: center;
+            margin-top: 3rem;
+            color: white;
+        }
+        .wallet-info h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .wallet-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none;"><h1>Top Up</h1></a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#how-it-works">How It Works</a>
+                    <a href="index.html#pricing">Pricing</a>
+                    <a href="wallet.html">Wallet</a>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="index.html#about">About</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="wallet-page">
+        <div class="container">
+            <div class="wallet-mockup-container">
+                <div class="phone-screen">
+                    <!-- Phone Header with Balance -->
+                    <div class="phone-header">
+                        <div class="status-bar">
+                            <span>9:41 AM</span>
+                            <span>🔋 100%</span>
+                        </div>
+                        <div class="balance-display">
+                            <div class="balance-label">Total Balance</div>
+                            <div class="balance-amount">R 5,247.50</div>
+                            <div class="balance-subtitle">≈ $287.45 USD</div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="#" class="action-btn">
+                            <div class="action-icon">📤</div>
+                            <div class="action-label">Send</div>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <div class="action-icon">📥</div>
+                            <div class="action-label">Receive</div>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <div class="action-icon">💳</div>
+                            <div class="action-label">Top Up</div>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <div class="action-icon">📊</div>
+                            <div class="action-label">History</div>
+                        </a>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+                        <div class="section-title">Payment Methods</div>
+                        <div class="methods-grid">
+                            <div class="method-card active">
+                                <div class="method-icon">💳</div>
+                                <div class="method-name">PayFast</div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">📱</div>
+                                <div class="method-name">Zapper</div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">🏦</div>
+                                <div class="method-name">Bank</div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">💵</div>
+                                <div class="method-name">Card</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions -->
+                    <div class="transactions-section">
+                        <div class="section-title">Recent Transactions</div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-icon incoming">💳</div>
+                            <div class="transaction-details">
+                                <div class="transaction-name">Payment Received</div>
+                                <div class="transaction-date">Today, 2:30 PM</div>
+                            </div>
+                            <div class="transaction-amount positive">+R 450.00</div>
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="transaction-icon outgoing">🛒</div>
+                            <div class="transaction-details">
+                                <div class="transaction-name">Coffee Shop Purchase</div>
+                                <div class="transaction-date">Today, 11:15 AM</div>
+                            </div>
+                            <div class="transaction-amount negative">-R 85.50</div>
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="transaction-icon incoming">👤</div>
+                            <div class="transaction-details">
+                                <div class="transaction-name">Money Received</div>
+                                <div class="transaction-date">Yesterday, 4:22 PM</div>
+                            </div>
+                            <div class="transaction-amount positive">+R 1,200.00</div>
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="transaction-icon outgoing">🚗</div>
+                            <div class="transaction-details">
+                                <div class="transaction-name">Ride Payment</div>
+                                <div class="transaction-date">Yesterday, 1:45 PM</div>
+                            </div>
+                            <div class="transaction-amount negative">-R 125.00</div>
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="transaction-icon incoming">🏪</div>
+                            <div class="transaction-details">
+                                <div class="transaction-name">Refund - Store</div>
+                                <div class="transaction-date">2 days ago</div>
+                            </div>
+                            <div class="transaction-amount positive">+R 320.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wallet-info">
+                <h2>Secure Digital Wallet</h2>
+                <p>Manage your money with confidence. Top Up wallet features bank-level encryption, instant transfers, and support for multiple payment methods including PayFast, Zapper, and card payments. All transactions are secure and tracked in real-time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Top Up</h2>
+                    <p>Connecting communities, businesses, and services</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#how-it-works">How It Works</a>
+                        <a href="index.html#pricing">Pricing</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="index.html#about">About</a>
+                        <a href="index.html#contact">Contact</a>
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <a href="index.html#contact">Help Center</a>
+                        <a href="mailto:support@topup.app">Email Support</a>
+                        <a href="mailto:business@topup.app">Business Inquiries</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Top Up. All rights reserved.</p>
+                <div class="footer-payment-logos">
+                    <span>Secure payments by</span>
+                    <span class="payment-badge">PayFast</span>
+                    <span class="payment-badge">Zapper</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
